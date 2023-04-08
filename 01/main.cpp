@@ -3,63 +3,61 @@
 
 #include <iostream>
 #include <vector>
-#include <cmath>
+//#include <cmath>
+//#include <string>
 
-//template <class T>
-//T degree(T xxx)
-//{
-//	return xxx * xxx;
-//};
-
-void degree(std::vector <int>* v1, int size)
+//Шаблон для Возведение в квадрат числа
+template <class T>
+T degree(T num)
 {
-	for (size_t i = 0; i < size; i++)
+	return num * num;
+};
+
+
+//Шаблон для string
+template <>
+std::string degree(std::string num)
+{
+	return num;
+};
+
+//Шаблон для Возведение в квадрат вектора
+template <class T>
+void degree(T* v1)
+{
+	for (size_t i = 0; i < v1->size(); i++)
 	{
 		v1->at(i) *= v1->at(i);
 	};
 };
 
-/*template <class T1, class T2>
-T1 degree(T1 vec1, T2 size)
+//Печать вектора
+void printVector(std::vector<int>* v1)
 {
-	for (size_t i = 0; i < vec1.size(); i++)
+	for (size_t i = 0; i < v1->size(); i++)
 	{
-		vec1[i] = std::pow(vec1[i]);
+		std::cout << v1->at(i) << "\t";
 	};
+};
 
-	return vec1;
-};*/
 
 
 int main()
 {
 	setlocale(LC_ALL, "ru");
 
-	std::vector <int> v1 {-1, 2, 4, 7};
+	
+	std::cout << "degree <string>(a) = " << degree <std::string>("Privet") << std::endl;
+	std::cout << "degree <int>(a) = " << degree <int>(2) << std::endl;
+	std::cout << "degree <double>(b) = " << degree <double>(3.5) << std::endl;
 
-	for (size_t i = 0; i < v1.size(); i++)
-	{
-		std::cout << v1[i] << "\t";
-	};
-	std::cout << std::endl << std::endl;
+	std::vector <int> v1{ -1, 2, 4, 7 };
 
-	//std::cout << degree <int>(2) << std::endl;
-	//std::cout << degree <double>(3.5) << std::endl;
+	printVector(&v1);
+	degree(&v1);
+	std::cout << std::endl << "Вектор в квадрате: " << std::endl;
+	printVector(&v1);
 
-	degree(&v1, v1.size());
-
-	for (size_t i = 0; i < v1.size(); i++)
-	{
-		std::cout << v1[i] << "\t";
-	};
-	std::cout << std::endl << std::endl;
-
-
-	//degree(v1);
-
-
-
-
-
-
+	std::cout << std::endl;
+	std::cout << std::endl;
 };
