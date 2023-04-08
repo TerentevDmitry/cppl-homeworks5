@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 //#include <cmath>
-//#include <string>
+#include <string>
 
 //Шаблон для Возведение в квадрат числа
 template <class T>
