@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 //#include <cmath>
-//#include <string>
+#include <string>
 
 //Шаблон для Возведение в квадрат числа
 template <class T>
@@ -14,7 +14,7 @@ T degree(T num)
 };
 
 
-//Шаблон для string
+//Специализация шаблона для string
 template <>
 std::string degree(std::string num)
 {

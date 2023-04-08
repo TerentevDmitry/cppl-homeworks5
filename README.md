@@ -22,7 +22,7 @@
 
 ### Задание 1
 
-[Возведение в квадрат](https://github.com/netology-code/cppl-homeworks/tree/main/05/01).
+[Возведение в квадрат](01).
 <details>
 # Задача 1. Возведение в квадрат
 
@@ -44,7 +44,7 @@
 
 ### Задание 2
 
-[Таблица](https://github.com/netology-code/cppl-homeworks/tree/main/05/02).
+[Таблица](02).
 <details>
 # Задача 2. Таблица
 
@@ -75,7 +75,7 @@ std::cout << test[0][0]; // выводит 4
 
 ### Задание 3
 
-[Счётчик чисел](https://github.com/netology-code/cppl-homeworks/tree/main/05/03).
+[Счётчик чисел](03).
 <details>
 # Задача 3. Счётчик чисел
 
