@@ -3,9 +3,6 @@
 #include <array>
 #include <exception>
 
-
-
-
 template<class T>
 class Table
 {
@@ -39,7 +36,7 @@ public:
 	public:
 		ArrayRow(T* arrayRow_, int arrSizeCol) : arrayRow_(arrayRow_), arrSizeCol_(arrSizeCol) { }
 
-		T & operator[](int i) 
+		T& operator[](int i)
 		{
 			if (i >= arrSizeCol_ || i < 0) throw std::out_of_range("out_of_range index j(two)");
 			return arrayRow_[i];
@@ -47,7 +44,6 @@ public:
 	private:
 		T* arrayRow_;
 		int arrSizeCol_ = 0;
-
 	};
 
 	ArrayRow operator[](int i)
@@ -59,7 +55,7 @@ public:
 
 	void getSize()
 	{
-		std::cout << "Size: " << arrSizeRow_ << " x " << arrSizeCol_ << std::endl << std::endl;
+		std::cout << "Size Of Array: " << arrSizeRow_ << " x " << arrSizeCol_ << std::endl << std::endl;
 	};
 
 	void printArr() 

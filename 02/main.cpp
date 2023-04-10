@@ -8,11 +8,13 @@ int main()
 {
     setlocale(LC_ALL, "ru");
 
-
-
     Table <double> T1(7, 7);
+    
     T1.printArr();
+    
     T1.getSize();
+    
+    
     try
     {
         T1(0, 0) = 3.3;
@@ -20,6 +22,7 @@ int main()
         T1(2, 2) = 9.5;
         T1(5, 4) = 10.6;
         T1[5][5] = 99;
+        T1[5][6] = 88;
 
         T1.printArr();
 
