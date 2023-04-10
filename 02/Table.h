@@ -46,6 +46,7 @@ public:
 	Proxy& operator[](int index) 
 	{
 		
+		
 		return Proxy(arr1_[index]);
 	};
 
