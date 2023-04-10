@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <array>
+#include <exception>
 
 
 
@@ -27,29 +28,36 @@ public:
 	
 	T& operator()(int i,int j)
 	{
+		if (i >= arrSizeRow_ || i < 0) throw std::out_of_range("out_of_range index i(one)");
+		if(j >= arrSizeCol_ || j < 0) throw std::out_of_range("out_of_range index j(one)");
+
 		return arr1_[i][j];
 	};
 
-	class Proxy
+	class ArrayRow
 	{
 	public:
-		Proxy(T* _array) : _array(_array) { }
+		ArrayRow(T* arrayRow_, int arrSizeCol) : arrayRow_(arrayRow_), arrSizeCol_(arrSizeCol) { }
 
-		T operator[](int index) {
-			return _array[index];
+		T & operator[](int i) 
+		{
+			if (i >= arrSizeCol_ || i < 0) throw std::out_of_range("out_of_range index j(two)");
+			return arrayRow_[i];
 		}
 	private:
-		T* _array;
+		T* arrayRow_;
+		int arrSizeCol_ = 0;
 
 	};
 
-	Proxy& operator[](int index) 
+	ArrayRow operator[](int i)
 	{
-		
-		return Proxy(arr1_[index]);
+		if (i >= arrSizeRow_ || i < 0) throw std::out_of_range("out_of_range index i(one)");
+
+		return ArrayRow(arr1_[i], arrSizeCol_);
 	};
 
-	void getSize() 
+	void getSize()
 	{
 		std::cout << "Size: " << arrSizeRow_ << " x " << arrSizeCol_ << std::endl << std::endl;
 	};

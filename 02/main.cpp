@@ -8,22 +8,31 @@ int main()
 {
     setlocale(LC_ALL, "ru");
 
-    Table <double> T1(4, 4);
+
+
+    Table <double> T1(7, 7);
     T1.printArr();
     T1.getSize();
+    try
+    {
+        T1(0, 0) = 3.3;
+        T1(1, 1) = 7.4;
+        T1(2, 2) = 9.5;
+        T1(5, 4) = 10.6;
+        T1[5][5] = 99;
 
-    T1(0, 0) = 3.3;
-    T1(1, 1) = 7.4;
-    T1(2, 2) = 9.5;
-    T1(3, 3) = 10.6;
+        T1.printArr();
 
-    T1[3][4] = 99;
+        std::cout << T1(1, 1) << "\n";
+        std::cout << T1[5][5] << "\n";
 
-    T1.printArr();
+    }
+    catch (const std::exception& ex)
+    {
+        std::cout << ex.what() << std::endl;
+    };
 
-    std::cout << T1(1, 1) << "\n";
 
-    std::cout << T1[3][3] << "\n";
 
     std::cout << "\n\nHello World!\n\n";
 };
