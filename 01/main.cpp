@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <vector>
-//#include <cmath>
 #include <string>
 
 //Шаблон для Возведение в квадрат числа
@@ -12,7 +11,6 @@ T degree(T num)
 {
 	return num * num;
 };
-
 
 //Специализация шаблона для string
 template <>
@@ -23,12 +21,13 @@ std::string degree(std::string num)
 
 //Шаблон для Возведение в квадрат вектора
 template <class T>
-void degree(T* v1)
+std::vector<T>& degree(std::vector<T>& b)
 {
-	for (size_t i = 0; i < v1->size(); i++)
+	for (size_t i = 0; i < b.size(); i++)
 	{
-		v1->at(i) *= v1->at(i);
+		b.at(i) *= b.at(i);
 	};
+	return b;
 };
 
 //Печать вектора
@@ -40,24 +39,30 @@ void printVector(std::vector<int>* v1)
 	};
 };
 
-
-
 int main()
 {
 	setlocale(LC_ALL, "ru");
-
 	
-	std::cout << "degree <string>(a) = " << degree <std::string>("Privet") << std::endl;
-	std::cout << "degree <int>(a) = " << degree <int>(2) << std::endl;
-	std::cout << "degree <double>(b) = " << degree <double>(3.5) << std::endl;
+	int a = 5;
+	int x = degree(a);
 
-	std::vector <int> v1{ -1, 2, 4, 7 };
+	std::cout << "degree <int>(a) = " << x << std::endl;
+	std::cout << "degree <string>(Privet) = " << degree <std::string>("Privet") << std::endl;
+	std::cout << "degree <int>(2) = " << degree <int>(2) << std::endl;
+	std::cout << "degree <double>(3.5) = " << degree <double>(3.5) << std::endl;
+	std::cout << std::endl;
 
-	printVector(&v1);
-	degree(&v1);
-	std::cout << std::endl << "Вектор в квадрате: " << std::endl;
-	printVector(&v1);
+	std::vector<int> b = { -1, 4, 8, -7, 0 };
 
+	std::cout << "Вектор до" << std::endl;
+	printVector(&b);
+	std::cout << std::endl;
+
+	std::vector<int> y = degree(b);
+	
+	std::cout << "Вектор после" << std::endl;
+	printVector(&b);
+	
 	std::cout << std::endl;
 	std::cout << std::endl;
 };
