@@ -34,7 +34,7 @@ public:
 	class ArrayRow
 	{
 	public:
-		ArrayRow(T* arrayRow_, int arrSizeCol) : arrayRow_(arrayRow_), arrSizeCol_(arrSizeCol) { }
+		ArrayRow(T* arrayRow_, const int arrSizeCol) : arrayRow_(arrayRow_), arrSizeCol_(arrSizeCol) { }
 
 		T& operator[](int i)
 		{
@@ -46,11 +46,48 @@ public:
 		int arrSizeCol_ = 0;
 	};
 
-	ArrayRow operator[](int i)
+	ArrayRow operator[](const int i) const
 	{
 		if (i >= arrSizeRow_ || i < 0) throw std::out_of_range("out_of_range index i(one)");
 
 		return ArrayRow(arr1_[i], arrSizeCol_);
+	};
+
+	//Удаление функции копирования одного объекта в другой
+	//Table& operator=(const Table& other) = delete;
+
+	Table& operator=(Table& other)
+	{
+		if (this != &other)
+		{
+			arrSizeCol_ = other.arrSizeCol_;
+			arrSizeRow_ = other.arrSizeRow_;
+
+			delete[] arr1_;
+
+			//создаем новый массив
+			
+			arr1_ = new T * [arrSizeRow_] {};
+			for (int i = 0; i < arrSizeRow_; i++)
+			{
+				arr1_[i] = new T[arrSizeCol_]{};
+			}
+			std::cout << "Конструктор " << this << std::endl;
+
+			//копируем элементы из старого массива в новый
+			for (size_t i = 0; i < arrSizeRow_; i++)
+			{
+				for (size_t j = 0; j < arrSizeCol_; j++)
+				{
+					arr1_[i][j] = other.arr1_[i][j];
+				}
+			}
+			std::cout << this << " - Оператор копирования SmartArray::operator=()\n\n";
+
+			return *this;
+		};
+		std::cout << "Вы пытаетесь скопировать объект сам в себя\n";
+		return *this;
 	};
 
 	void getSize()
