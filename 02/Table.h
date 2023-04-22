@@ -13,6 +13,7 @@ private:
 	int size_ = 0;
 
 public:
+	//Конструктор создает двумерный массив
 	Table(int arrSizeRow, int arrSizeCol) : arrSizeRow_{arrSizeRow}, arrSizeCol_(arrSizeCol)
 	{
 		arr1_ = new T* [arrSizeRow_] {};
@@ -22,7 +23,36 @@ public:
 		}
 		std::cout << "Конструктор " << this << std::endl;
 	};
-	
+
+	//Конструктор копирования
+	Table(const Table& other)
+	{
+		//присваиваем размеры из массив1(other)
+		this->arrSizeRow_ = other.arrSizeRow_;
+		this->arrSizeCol_ = other.arrSizeCol_;
+
+		//создаем новый массив2 длинной как массив1(other) с которого копируем.
+		arr1_ = new T * [this->arrSizeRow_] {};
+		for (int i = 0; i < this->arrSizeRow_; i++)
+		{
+			arr1_[i] = new T[this->arrSizeCol_]{};
+		}
+		std::cout << "Конструктор " << this << std::endl;
+
+		//копируем элементы из массив1(other) в массив2
+		for (size_t i = 0; i < other.arrSizeRow_; i++)
+		{
+			for (size_t j = 0; j < other.arrSizeCol_; j++)
+			{
+				this->arr1_[i][j] = other.arr1_[i][j];
+			}
+		}
+		std::cout << std::endl;
+
+		std::cout << this << " - Конструктор Копирования Table(const Table& other)\n\n";
+	};
+
+	//Оператор ()
 	T& operator()(int i,int j)
 	{
 		if (i >= arrSizeRow_ || i < 0) throw std::out_of_range("out_of_range index i(one)");
@@ -31,6 +61,7 @@ public:
 		return arr1_[i][j];
 	};
 
+	//реализация operator[] для двумерного массива
 	class ArrayRow
 	{
 	public:
@@ -45,7 +76,6 @@ public:
 		T* arrayRow_;
 		int arrSizeCol_ = 0;
 	};
-
 	ArrayRow operator[](const int i) const
 	{
 		if (i >= arrSizeRow_ || i < 0) throw std::out_of_range("out_of_range index i(one)");
@@ -56,17 +86,28 @@ public:
 	//Удаление функции копирования одного объекта в другой
 	//Table& operator=(const Table& other) = delete;
 
-	Table& operator=(Table& other)
+	//Оператор присваивания
+	Table& operator=(const Table& other)
 	{
 		if (this != &other)
 		{
-			arrSizeCol_ = other.arrSizeCol_;
-			arrSizeRow_ = other.arrSizeRow_;
+			//присваиваем размеры из массив1(other)
+			this->arrSizeCol_ = other.arrSizeCol_;
+			this->arrSizeRow_ = other.arrSizeRow_;
 
-			delete[] arr1_;
+			//удаление(очищение) двумерного массива this, чтоб чисто было
+			this->~Table();
+			/*for (size_t i = 0; i < this->arrSizeRow_; i++)
+			{
+				for (size_t j = 0; j < this->arrSizeCol_; j++)
+				{
+					delete[] this->arr1_[i][j];
+				}
+			}
+			delete[] this->arr1_;
+			this->arr1_ = nullptr;*/
 
 			//создаем новый массив
-			
 			arr1_ = new T * [arrSizeRow_] {};
 			for (int i = 0; i < arrSizeRow_; i++)
 			{
@@ -75,13 +116,14 @@ public:
 			std::cout << "Конструктор " << this << std::endl;
 
 			//копируем элементы из старого массива в новый
-			for (size_t i = 0; i < arrSizeRow_; i++)
+			for (size_t i = 0; i < other.arrSizeRow_; i++)
 			{
-				for (size_t j = 0; j < arrSizeCol_; j++)
+				for (size_t j = 0; j < other.arrSizeCol_; j++)
 				{
-					arr1_[i][j] = other.arr1_[i][j];
+					this->arr1_[i][j] = other.arr1_[i][j];
 				}
 			}
+
 			std::cout << this << " - Оператор копирования SmartArray::operator=()\n\n";
 
 			return *this;
@@ -90,11 +132,13 @@ public:
 		return *this;
 	};
 
+	//Метод смотрим размер объекта
 	void getSize()
 	{
 		std::cout << "Size Of Array: " << arrSizeRow_ << " x " << arrSizeCol_ << std::endl << std::endl;
 	};
 
+	//Метод печать объекта
 	void printArr() 
 	{
 		for (size_t i = 0; i < arrSizeRow_; i++)
@@ -110,8 +154,12 @@ public:
 
 	~Table()
 	{
-		delete[] arr1_;
-		arr1_ = nullptr;
+		for (size_t i = 0; i < this->arrSizeRow_; i++)
+		{
+			delete[] this->arr1_[i];
+		}
+		delete[] this->arr1_;
+		this->arr1_ = nullptr;
 		std::cout << "Деструктор " << this << std::endl;
 	}
 };
