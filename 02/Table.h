@@ -97,15 +97,6 @@ public:
 
 			//удаление(очищение) двумерного массива this, чтоб чисто было
 			this->~Table();
-			/*for (size_t i = 0; i < this->arrSizeRow_; i++)
-			{
-				for (size_t j = 0; j < this->arrSizeCol_; j++)
-				{
-					delete[] this->arr1_[i][j];
-				}
-			}
-			delete[] this->arr1_;
-			this->arr1_ = nullptr;*/
 
 			//создаем новый массив
 			arr1_ = new T * [arrSizeRow_] {};
@@ -124,7 +115,7 @@ public:
 				}
 			}
 
-			std::cout << this << " - Оператор копирования SmartArray::operator=()\n\n";
+			std::cout << this << " - Оператор копирования Table& operator=(const Table& other)\n\n";
 
 			return *this;
 		};
@@ -154,9 +145,9 @@ public:
 
 	~Table()
 	{
-		for (size_t i = 0; i < this->arrSizeRow_; i++)
+		for (size_t j = 0; j < this->arrSizeRow_; j++)
 		{
-			delete[] this->arr1_[i];
+			delete[] this->arr1_[j];
 		}
 		delete[] this->arr1_;
 		this->arr1_ = nullptr;
