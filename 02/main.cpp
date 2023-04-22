@@ -62,7 +62,6 @@ int main()
         Table<double> t3(t1);
         std::cout << "\nОбъект t3\n";
         t3.printArr();
-
     }
     catch (const std::exception& ex)
     {
